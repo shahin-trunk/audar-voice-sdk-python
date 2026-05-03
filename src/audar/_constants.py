@@ -6,6 +6,7 @@ USER_AGENT = f"audar-python/{SDK_VERSION}"
 DEFAULT_TTS_BASE_URL = "https://txt2sph.audarai.com"
 DEFAULT_STT_BASE_URL = "https://sph2txt.audarai.com"
 DEFAULT_SIDON_BASE_URL = "https://sph2sphe.audarai.com"
+DEFAULT_BACKEND_BASE_URL = "https://argent.audarai.com"
 
 DEFAULT_TIMEOUT = 60.0
 DEFAULT_CONNECT_TIMEOUT = 10.0

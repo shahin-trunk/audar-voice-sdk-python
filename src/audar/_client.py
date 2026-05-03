@@ -9,6 +9,7 @@ from typing import Any
 
 from audar._config import AudarConfig
 from audar._constants import (
+    DEFAULT_BACKEND_BASE_URL,
     DEFAULT_CONNECT_TIMEOUT,
     DEFAULT_MAX_RETRIES,
     DEFAULT_SIDON_BASE_URL,
@@ -20,6 +21,7 @@ from audar._http import create_http_client
 from audar.resources.sidon import AsyncSidon
 from audar.resources.stt import AsyncSTT
 from audar.resources.tts import AsyncTTS
+from audar.resources.voice import AsyncVoice
 
 
 class AsyncAudar:
@@ -40,6 +42,7 @@ class AsyncAudar:
         tts_base_url: str = DEFAULT_TTS_BASE_URL,
         stt_base_url: str = DEFAULT_STT_BASE_URL,
         sidon_base_url: str = DEFAULT_SIDON_BASE_URL,
+        backend_base_url: str = DEFAULT_BACKEND_BASE_URL,
         timeout: float = DEFAULT_TIMEOUT,
         connect_timeout: float = DEFAULT_CONNECT_TIMEOUT,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -49,6 +52,7 @@ class AsyncAudar:
             tts_base_url=tts_base_url,
             stt_base_url=stt_base_url,
             sidon_base_url=sidon_base_url,
+            backend_base_url=backend_base_url,
             timeout=timeout,
             connect_timeout=connect_timeout,
             max_retries=max_retries,
@@ -69,6 +73,11 @@ class AsyncAudar:
         self.audio = AsyncSidon(
             self._client,
             self._config.sidon_base_url,
+            self._config.max_retries,
+        )
+        self.voice = AsyncVoice(
+            self._client,
+            self._config.backend_base_url,
             self._config.max_retries,
         )
 
@@ -123,6 +132,7 @@ class Audar:
         tts_base_url: str = DEFAULT_TTS_BASE_URL,
         stt_base_url: str = DEFAULT_STT_BASE_URL,
         sidon_base_url: str = DEFAULT_SIDON_BASE_URL,
+        backend_base_url: str = DEFAULT_BACKEND_BASE_URL,
         timeout: float = DEFAULT_TIMEOUT,
         connect_timeout: float = DEFAULT_CONNECT_TIMEOUT,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -136,6 +146,7 @@ class Audar:
             tts_base_url=tts_base_url,
             stt_base_url=stt_base_url,
             sidon_base_url=sidon_base_url,
+            backend_base_url=backend_base_url,
             timeout=timeout,
             connect_timeout=connect_timeout,
             max_retries=max_retries,
@@ -144,6 +155,7 @@ class Audar:
         self.tts = _SyncResourceProxy(self._async_client.tts, self._loop)
         self.stt = _SyncResourceProxy(self._async_client.stt, self._loop)
         self.audio = _SyncResourceProxy(self._async_client.audio, self._loop)
+        self.voice = _SyncResourceProxy(self._async_client.voice, self._loop)
 
     def close(self) -> None:
         """Close the client and its background event loop."""

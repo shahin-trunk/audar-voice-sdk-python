@@ -30,6 +30,17 @@ from audar.models.tts import (
     SynthesisResponse,
     TTSHealthResponse,
 )
+from audar.models.voice import (
+    PersonaCreateRequest,
+    PersonaDetail,
+    PersonaListResponse,
+    PersonaSummary,
+    PersonaUpdateRequest,
+    VoiceConfig,
+    VoiceHealthResponse,
+    VoiceProfile,
+    VoiceSessionResponse,
+)
 
 __all__ = [
     # Enums
@@ -62,4 +73,14 @@ __all__ = [
     "ModelInfo",
     "ModelListResponse",
     "SidonHealthResponse",
+    # Voice
+    "PersonaCreateRequest",
+    "PersonaDetail",
+    "PersonaListResponse",
+    "PersonaSummary",
+    "PersonaUpdateRequest",
+    "VoiceConfig",
+    "VoiceHealthResponse",
+    "VoiceProfile",
+    "VoiceSessionResponse",
 ]
